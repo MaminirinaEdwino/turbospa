@@ -40,7 +40,7 @@ func createDOMElement(vnode VNode) js.Value {
         jsFunc := js.FuncOf(handler)
         // On l'attache à l'élément (ex: "click")
         el.Call("addEventListener", eventName, jsFunc)
-        
+        fmt.Println("event", eventName,vnode.TagName)
         // Note pour plus tard : Dans une lib pro, il faudra stocker jsFunc 
         // pour appeler .Release() lors de la suppression du nœud.
     }
