@@ -8,8 +8,9 @@ type VNode struct {
     Attrs    map[string]string
     Children []VNode
     Text     string
-    // Référence vers l'élément réel dans le navigateur
-    domElement js.Value 
+    // Nouveau : pour stocker les événements
+    Events   map[string]func(js.Value, []js.Value) interface{}
+    domElement js.Value
 }
 
 // Fonction pour créer un nœud de manière fluide (Helper)
