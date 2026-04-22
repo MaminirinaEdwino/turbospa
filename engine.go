@@ -35,6 +35,16 @@ func createDOMElement(vnode VNode) js.Value {
         el.Call("setAttribute", k, v)
     }
 
+	for eventName, handler := range vnode.Events {
+        // On crée une fonction JS à partir de la fonction Go
+        jsFunc := js.FuncOf(handler)
+        // On l'attache à l'élément (ex: "click")
+        el.Call("addEventListener", eventName, jsFunc)
+        
+        // Note pour plus tard : Dans une lib pro, il faudra stocker jsFunc 
+        // pour appeler .Release() lors de la suppression du nœud.
+    }
+
     if vnode.Text != "" {
         el.Set("textContent", vnode.Text) // textContent est plus sûr que innerText
     }
