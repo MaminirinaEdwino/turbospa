@@ -34,7 +34,7 @@ func createDOMElement(vnode VNode) js.Value {
     for k, v := range vnode.Attrs {
         el.Call("setAttribute", k, v)
     }
-
+	fmt.Println("event source", vnode.TagName)
 	for eventName, handler := range vnode.Events {
         // On crée une fonction JS à partir de la fonction Go
         jsFunc := js.FuncOf(handler)
