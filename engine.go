@@ -24,6 +24,10 @@ func createDOMElement(vnode VNode) js.Value {
 	fmt.Printf("Création de l'élément : [%s]\n", vnode.TagName)
     doc := js.Global().Get("document")
     // Assure-toi que vnode.TagName n'est pas vide
+
+	if vnode.TagName == "" {
+        return doc.Call("createTextNode", vnode.Text)
+    }
     el := doc.Call("createElement", vnode.TagName)
 
     // Remplace el.Set(k, v) par ceci :
