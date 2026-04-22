@@ -2,7 +2,10 @@
 
 package turbospa
 
-import "syscall/js"
+import (
+	"strings"
+	"syscall/js"
+)
 
 func Mount(targetID string, comp Component) {
 	document := js.Global().Get("document")
@@ -19,7 +22,9 @@ func Mount(targetID string, comp Component) {
 
 func createDOMElement(vnode VNode) js.Value {
 	doc := js.Global().Get("document")
-	el := doc.Call("createElement", vnode.TagName)
+	tag := strings.TrimSpace(vnode.TagName)
+	el := doc.Call("createElement", tag)
+	// el := doc.Call("createElement", vnode.TagName)
 
 	// Appliquer les attributs (id, class, etc.)
 	for k, v := range vnode.Attrs {
